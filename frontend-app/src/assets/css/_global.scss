@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p {
+  padding: 0;
+  margin: 0;
+}
+.sidebar {
+  background-image: linear-gradient(45deg, $theme-color, $theme-color-light);
+}
+.bg-theme {
+  background-image: linear-gradient(45deg, $theme-color, $theme-color-light);
+}
+.my-navbar {
+  background-color: $theme-color;
+}
+.main-btn {
+  background-color: $theme-color;
+  color: $white;
+  @include button;
+  @include transition;
+  &:hover {
+    background-color: $hover-btn;
+    color: $white;
+    @include transition;
+  }
+}
+.btn-link {
+  i {
+    color: #fff;
+  }
+}
+.login-btn {
+  background-color: $theme-button-color;
+  @include button;
+  color: #fff;
+  &:hover {
+    background-color: $theme-button-hover;
+    color: #fff;
+  }
+}
+.info-btn {
+  background-color: $info;
+  color: #fff;
+  margin-right: 5px;
+  &:hover {
+    background-color: $info-hover;
+    color: #fff;
+  }
+}
+.edit-btn {
+  background-color: $edit;
+  color: #fff;
+  margin-right: 5px;
+  &:hover {
+    background-color: $edit-hover;
+    color: #fff;
+  }
+}
+.delete-btn {
+  background-color: $delete;
+  color: #fff;
+  margin-right: 5px;
+  &:hover {
+    background-color: $delete-hover;
+    color: #fff;
+  }
+}
+.table-image {
+  width: 75px;
+  cursor: pointer;
+}
+.page-card {
+  padding-bottom: 20px;
+}
+.data-notFound-page {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+  font-weight: 600;
+}
+.aspect-one {
+  aspect-ratio: 1/1 !important;
+  object-fit: cover;
+}
+.aspect-two {
+  aspect-ratio: 1/1.25 !important;
+}
+.card-heading {
+  background-color: $theme-color;
+  color: #fff;
+  padding: 10px 20px;
+  border-bottom: none;
+}
+.loader {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  img {
+    position: absolute;
+    @include center;
+  }
+}
+.theme-text {
+  color: $text-color;
+}
+.theme-text-second {
+  color: $text-color-second;
+}
+.table {
+  tr {
+    vertical-align: middle;
+  }
+}

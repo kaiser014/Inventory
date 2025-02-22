@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Supplier;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductSpecification;
+use Illuminate\Support\Facades\Schema;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Resources\ProductListForBarCodeResource;
 use App\Http\Resources\ProductListResource;
+use App\Http\Resources\ProductDetailsResource;
+use App\Http\Resources\ProductListForBarCodeResource;
+use App\Models\Shop;
+use App\Models\SubCategory;
 
 class ProductController extends Controller
 {
@@ -70,7 +78,20 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $product->load([
+            'category:id,name',
+            'sub_category:id,name',
+            'brand:id,name',
+            'photos:id,photo,product_id',
+            'supplier:id,name,phone',
+            'created_by:id,name',
+            'updated_by:id,name',
+            'primary_photo',
+            'product_attributes',
+            'product_attributes.attributes',
+            'product_attributes.attribute_value',
+        ]);
+        return new ProductDetailsResource($product);
     }
 
     /**
@@ -100,5 +121,28 @@ class ProductController extends Controller
     public function productListForBarCode(Request $request){
         $products = (new Product())->getProductForBarCode($request->all());
         return ProductListForBarCodeResource::collection($products);
+    }
+
+    public function getProductColumns(){
+        $columns = Schema::getColumnListing('products');
+        $formatted_column = [];
+        foreach($columns as $column){
+            $formatted_column[] = [
+                'id' => $column,
+                'name' => ucfirst(str_replace('_',' ',$column)),
+            ];
+        }
+        return response()->json($formatted_column);
+    }
+
+    public function getAddProductData(){
+        return response()-> json([
+            'categories' =>  (new Category())->getCategoryIdAndName(),
+            'brands' => (new Brand())->getBrandName(),
+            'suppliers' => (new Supplier())->getSupplierIdAndName(),
+            'attributes' => (new Attribute())->getAttributeListWithValue(),
+            'sub_categories' => (new SubCategory())->getSubCategoryIdAndName(),
+            // 'shops' => (new Shop())->getShopsData(),
+        ]);
     }
 }

@@ -70,6 +70,9 @@ class Shop extends Model
     public function getShopIdAndName(){
         return self::query()->select('id','name')->where('status', self::STATUS_ACTIVE)->get();
     }
+    public function getShopsData(){
+        return self::query()->select('id as value','name as label')->where('status', self::STATUS_ACTIVE)->get();
+    }
 
     public function getShopDetailsById($id){
         return self::query()->with(

@@ -340,7 +340,7 @@ const Report = () => {
                 </div>
               </div> */}
               {/* Profit */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header">
                   <h5>Profit</h5>
                 </div>
@@ -378,7 +378,7 @@ const Report = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

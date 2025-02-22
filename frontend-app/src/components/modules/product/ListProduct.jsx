@@ -18,14 +18,22 @@ const ListProduct = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
   const [totalItemCount, setTotalItemCount] = useState(0);
   const [startFrom, setStartFrom] = useState(1);
   const [activePage, setActivePage] = useState(1);
 
-  const [products, setProducts] = useState([]);
+  const [productColumns, setProductColumns] = useState([]);
 
+  const getProductColumns = () => {
+    setIsLoading(true);
+    axios.get(`get-product-columns`).then((res) => {
+      setProductColumns(res.data);
+      setIsLoading(false);
+    });
+  };
   const getProducts = (pageNumber = 1) => {
     setIsLoading(true);
     axios
@@ -44,6 +52,7 @@ const ListProduct = () => {
 
   useEffect(() => {
     getProducts();
+    getProductColumns();
   }, []);
 
   const handleSearchInput = (e) => {
@@ -91,6 +100,7 @@ const ListProduct = () => {
               title="Product List"
               btn_name="Add Product"
               link="/product/create"
+              hide={true}
             />
             <div className="card-body">
               <div className="search-area mb-4">
@@ -117,11 +127,11 @@ const ListProduct = () => {
                         value={input.order_by}
                         onChange={handleSearchInput}
                       >
-                        <option value={"name"}>Name</option>
-                        <option value={"created_at"}>Created at</option>
-                        <option value={"updated_at"}>Updated at</option>
-                        <option value={"serial"}>Serial</option>
-                        <option value={"status"}>Status</option>
+                        {productColumns.map((productColumn, index) => (
+                          <option key={index} value={productColumn.id}>
+                            {productColumn.name}
+                          </option>
+                        ))}
                       </select>
                     </label>
                   </div>
@@ -297,9 +307,12 @@ const ListProduct = () => {
 
                             <td>
                               <div className="w-40">
-                                <button className="btn btn-sm btn-info">
+                                <Link
+                                  to={`/product/${product.id}`}
+                                  className="btn btn-sm btn-info"
+                                >
                                   <i class="fa-solid fa-eye"></i>
-                                </button>
+                                </Link>
                                 {GlobalFunction.isAdmin() && (
                                   <>
                                     <Link

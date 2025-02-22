@@ -72,11 +72,13 @@ Route::middleware(['auth:admin,sales_manager'])->group(function (){
     Route::get('get-category-list', [CategoryController::class, 'getCategoryList']);
     Route::get('get-sub-category-list/{category_id}', [SubCategoryController::class, 'getSubCategoryList']);
     Route::apiResource('product', ProductController::class)->only('index', 'show');
+    Route::get('get-product-columns', [ProductController::class, 'getProductColumns']);
     Route::apiResource('order', OrderController::class);
     Route::apiResource('customer', CustomerController::class);
     Route::get('get-payment-methods', [PaymentMethodController::class, 'index']);
     Route::get('product-list-for-bar-code', [ProductController::class, 'productListForBarCode']);
     Route::get('get-reports', [ReportController::class, 'index']);
+    Route::get('get-add-product-data', [ProductController::class, 'getAddProductData']);
 });
 
 // Route::get('get-reports', [ReportController::class, 'index']);

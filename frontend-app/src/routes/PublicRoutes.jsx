@@ -30,6 +30,7 @@ import OrderList from "../components/modules/order/OrderList";
 import OrderDetails from "../components/modules/order/OrderDetails";
 import BarCode from "../components/modules/bar_code/BarCode";
 import Report from "../components/modules/report/Report";
+import ProductDetails from "../components/modules/product/ProductDetails";
 
 const PublicRoutes = () => {
   return (
@@ -69,6 +70,7 @@ const PublicRoutes = () => {
             <Route path="/product/create" element={<AddProduct />} />
             <Route path="/product" element={<ListProduct />} />
             <Route path="/product/photo/:id" element={<AddProductPhoto />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             {/* Sales Manager */}
             <Route path="/sales-manager/create" element={<AddSalesManager />} />
             <Route path="/sales-manager" element={<ListSalesManager />} />

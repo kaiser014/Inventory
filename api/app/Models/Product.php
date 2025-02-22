@@ -102,6 +102,9 @@ class Product extends Model
     public function sub_category(){
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
+    public function brand(){
+        return $this->belongsTo(Brand::class);
+    }
     // public function country(){
     //     return $this->belongsTo(Country::class, 'country_id');
     // }
@@ -138,5 +141,9 @@ class Product extends Model
     public function getAllProduct($columns = ['*']){
         $products = DB::table('products')->select($columns)->get();
         return collect($products);
+    }
+
+    public function photos(){
+        return $this->hasMany(ProductPhoto::class)->where('is_primary', 0);
     }
 }

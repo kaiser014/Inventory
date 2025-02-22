@@ -42,9 +42,13 @@ const SideBar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <Link className="nav-link" to={"/product/create"}>
-                  Add Product
-                </Link>
+                {GlobalFunction.isAdmin() && (
+                  <>
+                    <Link className="nav-link" to={"/product/create"}>
+                      Add Product
+                    </Link>
+                  </>
+                )}
                 <Link className="nav-link" to={"/product"}>
                   List Product
                 </Link>
@@ -82,6 +86,20 @@ const SideBar = () => {
                 </Link>
               </nav>
             </div>
+            <div className="sb-sidenav-menu-heading">Accessories</div>
+            <Link className="nav-link" to={"/generate-bar-code"}>
+              <div className="sb-nav-link-icon">
+                <i className="fas fa-columns"></i>
+              </div>
+              Bar Code
+            </Link>
+            <div className="sb-sidenav-menu-heading">Reports</div>
+            <Link className="nav-link" to={"/report"}>
+              <div className="sb-nav-link-icon">
+                <i className="fas fa-columns"></i>
+              </div>
+              Report
+            </Link>
             {GlobalFunction.isAdmin() && (
               <>
                 <div className="sb-sidenav-menu-heading">Management</div>
@@ -278,18 +296,6 @@ const SideBar = () => {
                     <i className="fas fa-columns"></i>
                   </div>
                   Product Attribute
-                </Link>
-                <Link className="nav-link" to={"/generate-bar-code"}>
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
-                  </div>
-                  Bar Code
-                </Link>
-                <Link className="nav-link" to={"/report"}>
-                  <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
-                  </div>
-                  Report
                 </Link>
               </>
             )}

@@ -6,6 +6,7 @@ import CardHeader from "../../partials/miniComponent/CardHeader";
 import ShowOrderConfirmation from "../../partials/modals/ShowOrderConfirmation";
 import AddCustomer from "../../partials/modals/AddCustomer";
 import { useNavigate } from "react-router-dom";
+// import useScanDetection from "use-scan-detection";
 
 const CreateOrder = () => {
   const navigate = useNavigate();
@@ -50,6 +51,29 @@ const CreateOrder = () => {
 
   const [order, setOrder] = useState({});
 
+  // BarCode Scan Machine Code Start
+
+  // const [barCode, setBarCode] = useState("");
+
+  // useScanDetection({
+  //   onComplete: setBarCode,
+  //   minLength: 2,
+  // });
+
+  // useEffect(() => {
+  //   console.log(barCode);
+  //   setInput((prevState) => ({
+  //     ...prevState,
+  //     search: barCode,
+  //   }));
+  // }, [barCode]);
+
+  // useEffect(() => {
+  //   getProducts(1);
+  // }, [input.search]);
+
+  // BarCode Scan Machine Code End
+
   const getPaymentMethods = () => {
     axios.get(`/get-payment-methods`).then((res) => {
       setPaymentMethods(res.data);
@@ -91,7 +115,6 @@ const CreateOrder = () => {
   };
 
   // Real Time Search
-
   // useEffect(() => {
   //   getCustomers();
   // }, [customerInput]);

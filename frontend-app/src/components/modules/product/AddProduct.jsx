@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import BreadCrumb from "../../partials/BreadCrumb";
 import CardHeader from "../../partials/miniComponent/CardHeader";
+// import Select from "react-select";
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ const AddProduct = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [brands, setBrands] = useState([]);
   const [attributes, setAttributes] = useState([]);
+  // const [shops, setShops] = useState([]);
+
+  const [allSubCategories, setAllSubCategories] = useState([]);
 
   const [attribute_input, setAttribute_input] = useState({});
   const [specification_input, setSpecification_input] = useState({});
@@ -25,32 +29,14 @@ const AddProduct = () => {
   const [specificationFiled, setSpecificationFiled] = useState([]);
   const [specificationFiledId, setSpecificationFiledId] = useState(1);
 
-  const getCategories = () => {
-    axios.get(`/get-category-list`).then((res) => {
-      setCategories(res.data);
-    });
-  };
-
-  const getSubCategories = (category_id) => {
-    axios.get(`/get-sub-category-list/${category_id}`).then((res) => {
-      setSubCategories(res.data);
-    });
-  };
-
-  const getSuppliers = () => {
-    axios.get(`/get-supplier-list`).then((res) => {
-      setSuppliers(res.data);
-    });
-  };
-  const getBrands = () => {
-    axios.get(`/get-brand-list`).then((res) => {
-      setBrands(res.data);
-    });
-  };
-
-  const getAttributes = () => {
-    axios.get(`/get-attribute-list`).then((res) => {
-      setAttributes(res.data);
+  const getAddProductData = () => {
+    axios.get(`get-add-product-data`).then((res) => {
+      setCategories(res.data.categories);
+      setBrands(res.data.brands);
+      setAttributes(res.data.attributes);
+      setSuppliers(res.data.suppliers);
+      setAllSubCategories(res.data.sub_categories);
+      // setShops(res.data.shops);
     });
   };
 
@@ -63,7 +49,10 @@ const AddProduct = () => {
     } else if (e.target.name == "category_id") {
       let category_id = parseInt(e.target.value);
       if (!Number.isNaN(category_id)) {
-        getSubCategories(e.target.value);
+        let sub_category = allSubCategories.filter((item, index) => {
+          return item.category_id == category_id;
+        });
+        setSubCategories(sub_category);
       }
     }
     setInput((prevState) => ({
@@ -162,10 +151,7 @@ const AddProduct = () => {
   };
 
   useEffect(() => {
-    getCategories();
-    getSuppliers();
-    getBrands();
-    getAttributes();
+    getAddProductData();
   }, []);
 
   useEffect(() => {
@@ -178,6 +164,17 @@ const AddProduct = () => {
       specifications: specification_input,
     }));
   }, [specification_input]);
+
+  // const handleMultipleSelect = (e) => {
+  //   let value = [];
+  //   for (const item of e) {
+  //     value.push(item.vale);
+  //   }
+  //   setInput((prevState) => ({
+  //     ...prevState,
+  //     shop_ids: value,
+  //   }));
+  // };
 
   return (
     <>
@@ -192,6 +189,25 @@ const AddProduct = () => {
             />
             <div className="card-body">
               <div className="row">
+                {/* Select Shop */}
+                {/* <div className="col-md-6">
+                  <label className="w-100 mt-3">
+                    <p>Select Shop</p>
+                    <Select
+                      name={"shop_id[]"}
+                      onChange={handleMultipleSelect}
+                      isMulti
+                      options={shops}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                    />
+                    <p className="login-error-msg">
+                      <small>
+                        {errors.name !== undefined ? errors.name[0] : null}
+                      </small>
+                    </p>
+                  </label>
+                </div> */}
                 {/* Product Name */}
                 <div className="col-md-6">
                   <label className="w-100 mt-3">

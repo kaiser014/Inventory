@@ -21,7 +21,13 @@ const Report = () => {
       <div className="row">
         <div className="col-md-12">
           <div className="card">
-            <CardHeader title="Report" link="#" btn_name="List" hide={true} />
+            <CardHeader
+              title="Report"
+              link="#"
+              btn_name="List"
+              icon="fa-list"
+              hide={true}
+            />
             <div className="card-body">
               {/* Sales */}
               <div className="card mb-3">

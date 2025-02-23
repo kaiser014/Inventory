@@ -5,45 +5,24 @@ import Swal from "sweetalert2";
 import BreadCrumb from "../../partials/BreadCrumb";
 import CardHeader from "../../partials/miniComponent/CardHeader";
 
-const AddBrand = () => {
+const AddCustomer = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState({ status: 1 });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
   const handleInput = (e) => {
-    if (e.target.name === "name") {
-      let slug = e.target.value;
-      slug = slug.toLowerCase();
-      slug = slug.replaceAll(" ", "-");
-      setInput((prevState) => ({
-        ...prevState,
-        slug: slug,
-      }));
-    }
-
+    e.preventDefault();
     setInput((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleLogo = (e) => {
-    let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      setInput((prevState) => ({
-        ...prevState,
-        logo: reader.result,
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleBrandCreate = () => {
+  const handleCustomerCreate = () => {
     setIsLoading(true);
     axios
-      .post(`brand`, input)
+      .post(`/customer`, input)
       .then((res) => {
         setIsLoading(false);
         Swal.fire({
@@ -51,9 +30,9 @@ const AddBrand = () => {
           icon: res.data.cls,
           title: res.data.message,
           showConfirmButton: false,
+          toast: true,
           timer: 1500,
         });
-        navigate("/brand");
       })
       .catch((errors) => {
         setIsLoading(false);
@@ -61,19 +40,19 @@ const AddBrand = () => {
           setErrors(errors.response.data.errors);
         }
       });
+    navigate("/customer");
   };
-
   return (
     <>
-      <BreadCrumb title="Add Brand" />
+      <BreadCrumb title="Add Customer" />
       <div className="row">
         <div className="col-md-12">
           <div className="card">
             <CardHeader
-              title="Add Brand"
-              link="/brand"
+              title="Add Customer"
+              link="/customer"
               icon="fa-list"
-              btn_name="Brand List"
+              btn_name="Customer List"
             />
             <div className="card-body">
               <div className="row">
@@ -81,14 +60,14 @@ const AddBrand = () => {
                 <div className="col-md-6">
                   <label className="inputField w-100">
                     <div className="inputField-title mb-2">
-                      <p>Brand Name</p>
+                      <p>Customer Name</p>
                     </div>
                     <input
                       className="form-control"
                       name="name"
                       value={input.name}
                       onChange={handleInput}
-                      placeholder="Enter Brand Name"
+                      placeholder="Enter Customer Name"
                     />
                     <p className="error-message">
                       <small>
@@ -97,22 +76,44 @@ const AddBrand = () => {
                     </p>
                   </label>
                 </div>
-                {/* Slug */}
+                {/* Phone */}
                 <div className="col-md-6">
                   <label className="inputField w-100">
                     <div className="inputField-title mb-2">
-                      <p>Slug</p>
+                      <p>Phone</p>
                     </div>
                     <input
                       className="form-control"
-                      name="slug"
-                      value={input.slug}
+                      name="phone"
+                      type="number"
+                      value={input.phone}
                       onChange={handleInput}
-                      placeholder="Enter Brand Slug"
+                      placeholder="Phone Number"
                     />
                     <p className="error-message">
                       <small>
-                        {errors.slug !== undefined ? errors.slug[0] : null}
+                        {errors.phone !== undefined ? errors.phone[0] : null}
+                      </small>
+                    </p>
+                  </label>
+                </div>
+                {/* Email */}
+                <div className="col-md-6">
+                  <label className="inputField w-100">
+                    <div className="inputField-title mb-2">
+                      <p>Email Address</p>
+                    </div>
+                    <input
+                      className="form-control"
+                      name="email"
+                      type="email"
+                      value={input.email}
+                      onChange={handleInput}
+                      placeholder="Email Address"
+                    />
+                    <p className="error-message">
+                      <small>
+                        {errors.email !== undefined ? errors.email[0] : null}
                       </small>
                     </p>
                   </label>
@@ -139,70 +140,38 @@ const AddBrand = () => {
                     </p>
                   </label>
                 </div>
-                {/* Description */}
+                {/* Customer Address */}
                 <div className="col-md-6">
                   <label className="inputField w-100">
                     <div className="inputField-title mb-2">
-                      <p>Description</p>
+                      <p>Customer Address</p>
                     </div>
                     <textarea
                       className="form-control"
-                      name="description"
-                      value={input.description}
+                      name="address"
+                      value={input.address}
                       onChange={handleInput}
-                      placeholder="Enter Brand Description"
+                      placeholder="Enter Your Address"
                     ></textarea>
                     <p className="error-message">
                       <small>
-                        {errors.description !== undefined
-                          ? errors.description[0]
+                        {errors.address !== undefined
+                          ? errors.address[0]
                           : null}
                       </small>
                     </p>
                   </label>
-                </div>
-                {/* Logo */}
-                <div className="col-md-6">
-                  <label className="inputField w-100">
-                    <div className="inputField-title mb-2">
-                      <p>Logo</p>
-                    </div>
-                    <input
-                      className="form-control"
-                      name="logo"
-                      type="file"
-                      onChange={handleLogo}
-                    />
-                    <p className="error-message">
-                      <small>
-                        {errors.logo !== undefined ? errors.logo[0] : null}
-                      </small>
-                    </p>
-                  </label>
-                  {input.photo !== undefined ? (
-                    <div className="row">
-                      <div className="col-md-3">
-                        <div className="photo-preview mt-2">
-                          <img
-                            src={input.logo}
-                            alt={"Img preview"}
-                            className="img-thumbnail aspect-one"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
                 </div>
                 {/* Button */}
                 <div className="col-md-12 mt-3">
                   <div className="text-center">
                     <button
                       className="btn main-btn"
-                      onClick={handleBrandCreate}
+                      onClick={handleCustomerCreate}
                       dangerouslySetInnerHTML={{
                         __html: isLoading
                           ? '<span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span> Loading...'
-                          : "Add Brand",
+                          : "Add Customer",
                       }}
                     />
                   </div>
@@ -216,4 +185,4 @@ const AddBrand = () => {
   );
 };
 
-export default AddBrand;
+export default AddCustomer;

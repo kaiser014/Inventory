@@ -78,6 +78,7 @@ const EditSubCategory = () => {
             <CardHeader
               title="Edit Sub Category"
               link="/sub-category"
+              icon="fa-list"
               btn_name="Sub Category List"
             />
             <div className="card-body">

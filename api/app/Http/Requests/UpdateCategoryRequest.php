@@ -23,7 +23,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:100|string',
-  'slug' => 'required|min:3|max:100|string|unique:categories,slug,'.$this->id,
+            'slug' => 'required|min:3|max:100|string|unique:categories,slug,'.$this->id,
             'description' => 'max:200|string',
             'status' => 'required|numeric',
         ];

@@ -77,6 +77,7 @@ const BarCode = () => {
               title="Add Bar Code"
               link="#"
               btn_name="Bar Code List"
+              icon="fa-list"
               hide={true}
             />
             <div className="card-body">

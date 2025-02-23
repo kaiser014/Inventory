@@ -18,90 +18,9 @@ const SideBar = () => {
               </div>
               Dashboard
             </Link>
-            <div className="sb-sidenav-menu-heading">Product</div>
-            <Link
-              className="nav-link collapsed"
-              href="#"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseLayouts-product"
-              aria-expanded="false"
-              aria-controls="collapseLayouts-product"
-            >
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-columns"></i>
-              </div>
-              Product
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down text-white"></i>
-              </div>
-            </Link>
-            <div
-              className="collapse"
-              id="collapseLayouts-product"
-              aria-labelledby="headingOne"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
-                {GlobalFunction.isAdmin() && (
-                  <>
-                    <Link className="nav-link" to={"/product/create"}>
-                      Add Product
-                    </Link>
-                  </>
-                )}
-                <Link className="nav-link" to={"/product"}>
-                  List Product
-                </Link>
-              </nav>
-            </div>
-            <div className="sb-sidenav-menu-heading">Order</div>
-            <Link
-              className="nav-link collapsed"
-              href="#"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseLayouts-order"
-              aria-expanded="false"
-              aria-controls="collapseLayouts-order"
-            >
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-columns"></i>
-              </div>
-              Orders
-              <div className="sb-sidenav-collapse-arrow">
-                <i className="fas fa-angle-down text-white"></i>
-              </div>
-            </Link>
-            <div
-              className="collapse"
-              id="collapseLayouts-order"
-              aria-labelledby="headingOne"
-              data-bs-parent="#sidenavAccordion"
-            >
-              <nav className="sb-sidenav-menu-nested nav">
-                <Link className="nav-link" to={"/order/create"}>
-                  Create Order
-                </Link>
-                <Link className="nav-link" to={"/order"}>
-                  Order List
-                </Link>
-              </nav>
-            </div>
-            <div className="sb-sidenav-menu-heading">Accessories</div>
-            <Link className="nav-link" to={"/generate-bar-code"}>
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-columns"></i>
-              </div>
-              Bar Code
-            </Link>
-            <div className="sb-sidenav-menu-heading">Reports</div>
-            <Link className="nav-link" to={"/report"}>
-              <div className="sb-nav-link-icon">
-                <i className="fas fa-columns"></i>
-              </div>
-              Report
-            </Link>
             {GlobalFunction.isAdmin() && (
               <>
+                {/* Management Like Category, Sub Category, Brand, Supplier */}
                 <div className="sb-sidenav-menu-heading">Management</div>
                 <Link
                   className="nav-link collapsed"
@@ -143,7 +62,7 @@ const SideBar = () => {
                   aria-controls="collapseLayouts-subcategory"
                 >
                   <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
+                    <i class="fa-solid fa-table"></i>
                   </div>
                   Sub Category
                   <div className="sb-sidenav-collapse-arrow">
@@ -174,7 +93,7 @@ const SideBar = () => {
                   aria-controls="collapseLayouts-brand"
                 >
                   <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
+                    <i class="fa-solid fa-ring"></i>
                   </div>
                   Brand
                   <div className="sb-sidenav-collapse-arrow">
@@ -205,7 +124,7 @@ const SideBar = () => {
                   aria-controls="collapseLayouts-supplier"
                 >
                   <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
+                    <i class="fa-solid fa-parachute-box"></i>
                   </div>
                   Supplier
                   <div className="sb-sidenav-collapse-arrow">
@@ -227,7 +146,41 @@ const SideBar = () => {
                     </Link>
                   </nav>
                 </div>
-                <div className="sb-sidenav-menu-heading">Shop</div>
+                <Link
+                  className="nav-link collapsed"
+                  href="#"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseLayouts-customer"
+                  aria-expanded="false"
+                  aria-controls="collapseLayouts-customer"
+                >
+                  <div className="sb-nav-link-icon">
+                    <i class="fa-solid fa-user-tie"></i>
+                  </div>
+                  Customer
+                  <div className="sb-sidenav-collapse-arrow">
+                    <i className="fas fa-angle-down text-white"></i>
+                  </div>
+                </Link>
+                <div
+                  className="collapse"
+                  id="collapseLayouts-customer"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#sidenavAccordion"
+                >
+                  <nav className="sb-sidenav-menu-nested nav">
+                    <Link className="nav-link" to={"/customer/create"}>
+                      Add Customer
+                    </Link>
+                    <Link className="nav-link" to={"/customer"}>
+                      List Customer
+                    </Link>
+                  </nav>
+                </div>
+                {/* Shop & Sales Manager */}
+                <div className="sb-sidenav-menu-heading">
+                  Shop & Sales Manager
+                </div>
                 <Link
                   className="nav-link collapsed"
                   href="#"
@@ -237,7 +190,7 @@ const SideBar = () => {
                   aria-controls="collapseLayouts-shop"
                 >
                   <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
+                    <i class="fa-solid fa-shop"></i>
                   </div>
                   Shops
                   <div className="sb-sidenav-collapse-arrow">
@@ -268,7 +221,7 @@ const SideBar = () => {
                   aria-controls="collapseLayouts-sales-manager"
                 >
                   <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
+                    <i class="fa-solid fa-universal-access"></i>
                   </div>
                   Sales Manager
                   <div className="sb-sidenav-collapse-arrow">
@@ -290,15 +243,102 @@ const SideBar = () => {
                     </Link>
                   </nav>
                 </div>
-
+              </>
+            )}
+            {/* Product & Attribute Tab */}
+            <div className="sb-sidenav-menu-heading">Product & Attribute</div>
+            <Link
+              className="nav-link collapsed"
+              href="#"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseLayouts-product"
+              aria-expanded="false"
+              aria-controls="collapseLayouts-product"
+            >
+              <div className="sb-nav-link-icon">
+                <i class="fa-solid fa-box"></i>
+              </div>
+              Product
+              <div className="sb-sidenav-collapse-arrow">
+                <i className="fas fa-angle-down text-white"></i>
+              </div>
+            </Link>
+            <div
+              className="collapse"
+              id="collapseLayouts-product"
+              aria-labelledby="headingOne"
+              data-bs-parent="#sidenavAccordion"
+            >
+              <nav className="sb-sidenav-menu-nested nav">
+                {GlobalFunction.isAdmin() && (
+                  <>
+                    <Link className="nav-link" to={"/product/create"}>
+                      Add Product
+                    </Link>
+                  </>
+                )}
+                <Link className="nav-link" to={"/product"}>
+                  List Product
+                </Link>
+              </nav>
+            </div>
+            {GlobalFunction.isAdmin() && (
+              <>
                 <Link className="nav-link" to={"/product-attribute"}>
                   <div className="sb-nav-link-icon">
-                    <i className="fas fa-columns"></i>
+                    <i class="fa-solid fa-boxes-stacked"></i>
                   </div>
                   Product Attribute
                 </Link>
               </>
             )}
+            <div className="sb-sidenav-menu-heading">Order</div>
+            <Link
+              className="nav-link collapsed"
+              href="#"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseLayouts-order"
+              aria-expanded="false"
+              aria-controls="collapseLayouts-order"
+            >
+              <div className="sb-nav-link-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </div>
+              Orders
+              <div className="sb-sidenav-collapse-arrow">
+                <i className="fas fa-angle-down text-white"></i>
+              </div>
+            </Link>
+            <div
+              className="collapse"
+              id="collapseLayouts-order"
+              aria-labelledby="headingOne"
+              data-bs-parent="#sidenavAccordion"
+            >
+              <nav className="sb-sidenav-menu-nested nav">
+                <Link className="nav-link" to={"/order/create"}>
+                  Create Order
+                </Link>
+                <Link className="nav-link" to={"/order"}>
+                  Order List
+                </Link>
+              </nav>
+            </div>
+            {/* Accessories Like Bar Code */}
+            <div className="sb-sidenav-menu-heading">Accessories</div>
+            <Link className="nav-link" to={"/generate-bar-code"}>
+              <div className="sb-nav-link-icon">
+                <i class="fa-solid fa-barcode"></i>
+              </div>
+              Bar Code
+            </Link>
+            <div className="sb-sidenav-menu-heading">Reports</div>
+            <Link className="nav-link" to={"/report"}>
+              <div className="sb-nav-link-icon">
+                <i class="fa-solid fa-flag"></i>
+              </div>
+              Report
+            </Link>
           </div>
         </div>
         <div className="sb-sidenav-footer">

@@ -88,7 +88,7 @@ const AddSalesManager = () => {
           timer: 1500,
         });
         if (res.data.flag === undefined) {
-          //   navigate("/sales-manager");
+          navigate("/sales-manager");
         }
       })
       .catch((errors) => {
@@ -97,6 +97,7 @@ const AddSalesManager = () => {
           setErrors(errors.response.data.errors);
         }
       });
+    navigate("/sales-manager");
   };
 
   useEffect(() => {
@@ -112,6 +113,7 @@ const AddSalesManager = () => {
             <CardHeader
               title="Add Sales Manager"
               btn_name="Sales Manager List"
+              icon="fa-list"
               link="/sales-manager"
             />
             <div className="card-body">

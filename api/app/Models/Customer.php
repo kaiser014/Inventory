@@ -9,19 +9,26 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone'];
+    protected $fillable = ['name', 'phone', 'email', 'status', 'address', 'user_id'];
 
-    public function store($input){
-        $customer = $this->prepareData($input);
+    public function storeData($input, $auth){
+        $customer = $this->prepareData($input, $auth);
         return self::query()->create($customer);
     }
 
-    private function prepareData($input){
+    private function prepareData($input, $auth){
         return [
             'name' => $input['name'] ?? '',
-            'email' => $input['email'] ?? '',
             'phone' => $input['phone'] ?? '',
+            'email' => $input['email'] ?? '',
+            'status' => $input['status'] ?? 0,
+            'address' => $input['address'] ?? '',
+            'user_id' => $auth->id(),
         ];
+    }
+
+    public function getAllCustomer(){
+        return self::query()->with('user:id,name')->get();
     }
 
     public function getCustomerBySearch($search){
@@ -31,5 +38,9 @@ class Customer extends Model
         ->orWhere('phone', 'like', '%'.$search['search'].'%')
         ->take(10)
         ->get();
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

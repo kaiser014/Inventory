@@ -97,6 +97,7 @@ const ListSupplier = () => {
             <CardHeader
               title="Supplier List"
               link="/supplier/create"
+              icon="fa-plus"
               btn_name="Add Supplier"
             />
             <div className="card-body">

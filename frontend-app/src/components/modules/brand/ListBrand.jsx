@@ -54,6 +54,7 @@ const ListBrand = () => {
             <CardHeader
               title="Brand List"
               link="/brand/create"
+              icon="fa-plus"
               btn_name="Add Brand"
             />
             <div className="card-body">

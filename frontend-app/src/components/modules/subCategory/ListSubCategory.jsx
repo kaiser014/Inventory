@@ -52,6 +52,7 @@ const ListSubCategory = () => {
             <CardHeader
               title="Sub Category List"
               link="/sub-category/create"
+              icon="fa-plus"
               btn_name="Add Sub Category"
             />
             <div className="card-body">

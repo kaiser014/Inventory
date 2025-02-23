@@ -37,12 +37,11 @@ class CategoryController extends Controller
         $category = $request->all();
         $category['slug'] = Str::slug($request->input('slug'));
         $category['user_id'] = auth()->id();
-        return $category;
-        // (new Category())->storeData($category);
-        // return response()->json([
-        // 'message' => 'Category Added Successfully',
-        // 'cls' => 'success',
-        // ]);
+        (new Category())->storeData($category);
+        return response()->json([
+        'message' => 'Category Added Successfully',
+        'cls' => 'success',
+        ]);
     }
 
     /**

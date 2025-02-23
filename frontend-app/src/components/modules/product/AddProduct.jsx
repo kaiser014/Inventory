@@ -185,6 +185,7 @@ const AddProduct = () => {
             <CardHeader
               title="Add Product"
               btn_name="Product List"
+              icon="fa-list"
               link="/product"
             />
             <div className="card-body">

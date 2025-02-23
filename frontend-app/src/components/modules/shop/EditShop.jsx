@@ -109,7 +109,12 @@ const EditShop = () => {
       <div className="row">
         <div className="col-md-12">
           <div className="card">
-            <CardHeader title="Edit Shop" btn_name="Shop List" link="/shop" />
+            <CardHeader
+              title="Edit Shop"
+              btn_name="Shop List"
+              icon="fa-list"
+              link="/shop"
+            />
             <div className="card-body">
               <div className="row">
                 <div className="col-md-6">

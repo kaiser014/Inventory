@@ -54,6 +54,18 @@ class SalesManager extends Model
 
         return $sales_manager;
     }
+    public function prepareSalesManagerUpdateData(array $input, $auth){
+        $sales_manager['bio'] = $input['bio'] ?? null;
+        $sales_manager['email'] = $input['email'] ?? null;
+        $sales_manager['name'] = $input['name'] ?? null;
+        $sales_manager['phone'] = $input['phone'] ?? null;
+        $sales_manager['status'] = $input['status'] ?? 0;
+        $sales_manager['user_id'] = $auth->id();
+        $sales_manager['shop_id'] = $input['shop_id'] ?? null;
+        $sales_manager['nid'] = $input['nid'] ?? null;
+
+        return $sales_manager;
+    }
 
     public function address()
     {

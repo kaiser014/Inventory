@@ -99,6 +99,7 @@ const ListProduct = () => {
             <CardHeader
               title="Product List"
               btn_name="Add Product"
+              icon="fa-plus"
               link="/product/create"
               hide={true}
             />

@@ -75,6 +75,7 @@ Route::middleware(['auth:admin,sales_manager'])->group(function (){
     Route::get('get-product-columns', [ProductController::class, 'getProductColumns']);
     Route::apiResource('order', OrderController::class);
     Route::apiResource('customer', CustomerController::class);
+    Route::get('get-customer-list', [CustomerController::class, 'getCustomerBySearch']);
     Route::get('get-payment-methods', [PaymentMethodController::class, 'index']);
     Route::get('product-list-for-bar-code', [ProductController::class, 'productListForBarCode']);
     Route::get('get-reports', [ReportController::class, 'index']);

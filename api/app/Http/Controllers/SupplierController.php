@@ -107,12 +107,14 @@ class SupplierController extends Controller
             $supplier_data['logo'] = ImageManager::processImageUpload(
                 $request->input('logo'),
                 $name,
-                Supplier::LOGO_UPLOAD_PATH,
-                Supplier::LOGO_HEIGHT,
                 Supplier::LOGO_WIDTH,
-                Supplier::LOGO_UPLOAD_PATH_THUMB,
-                Supplier::LOGO_HEIGHT_THUMB,
+                Supplier::LOGO_HEIGHT,
+
                 Supplier::LOGO_WIDTH_THUMB,
+                Supplier::LOGO_HEIGHT_THUMB,
+
+                Supplier::LOGO_UPLOAD_PATH,
+                Supplier::LOGO_UPLOAD_PATH_THUMB,
                 $supplier->logo,
             );
         }

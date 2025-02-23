@@ -34,7 +34,6 @@ class SubCategoryController extends Controller
      */
     public function store(StoreSubCategoryRequest $request)
     {
-        // return $request->all();
         $sub_categories = $request->all();
         $sub_categories['slug'] = Str::slug($request->input('slug'));
         $sub_categories['user_id'] = auth()->id();

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Resources\CustomerEditResource;
+use App\Http\Resources\CustomerListResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,8 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $customers = (new Customer())->getCustomerBySearch($request->all());
-        return response()->json($customers);
+        $customers = (new Customer())->getAllCustomer($request->all());
+        return CustomerListResource::collection($customers);
     }
 
     /**
@@ -31,7 +33,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        $customer = (new Customer())->store($request->all());
+        $customer = (new Customer())->storeData($request->all(), auth());
         return response()->json([
             'message' => 'Customer Added Successfully',
             'cls' => 'success'
@@ -43,7 +45,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return new CustomerEditResource($customer);
     }
 
     /**
@@ -59,7 +61,12 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer_data = $request->all();
+        $customer->update($customer_data);
+        return response()->json([
+        'message' => 'Customer Updated Successfully',
+        'cls' => 'success',
+        ]);
     }
 
     /**
@@ -67,6 +74,14 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return response()->json([
+            'message' => 'Customer Deleted Successfully',
+            'cls' => 'warning'
+        ]);
+    }
+    public function getCustomerBySearch(Request $request){
+        $customers = (new Customer())->getCustomerBySearch($request->all());
+        return response()->json($customers);
     }
 }

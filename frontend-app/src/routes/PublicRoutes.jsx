@@ -31,6 +31,10 @@ import OrderDetails from "../components/modules/order/OrderDetails";
 import BarCode from "../components/modules/bar_code/BarCode";
 import Report from "../components/modules/report/Report";
 import ProductDetails from "../components/modules/product/ProductDetails";
+import AddCustomer from "../components/modules/customer/AddCustomer";
+import ListCustomer from "../components/modules/customer/ListCustomer";
+import EditCustomer from "../components/modules/customer/EditCustomer";
+import EditSalesManager from "../components/modules/salesManager/EditSalesManager";
 
 const PublicRoutes = () => {
   return (
@@ -60,6 +64,10 @@ const PublicRoutes = () => {
             <Route path="/supplier/create" element={<AddSupplier />} />
             <Route path="/supplier" element={<ListSupplier />} />
             <Route path="/supplier/edit/:id" element={<EditSupplier />} />
+            {/* Customer */}
+            <Route path="/customer/create" element={<AddCustomer />} />
+            <Route path="/customer" element={<ListCustomer />} />
+            <Route path="/customer/edit/:id" element={<EditCustomer />} />
             {/* Product Attribute */}
             <Route path="/product-attribute" element={<ProductAttribute />} />
             {/* Shop */}
@@ -74,6 +82,10 @@ const PublicRoutes = () => {
             {/* Sales Manager */}
             <Route path="/sales-manager/create" element={<AddSalesManager />} />
             <Route path="/sales-manager" element={<ListSalesManager />} />
+            <Route
+              path="/sales-manager/edit/:id"
+              element={<EditSalesManager />}
+            />
             {/* Orders */}
             <Route path="/order/create" element={<CreateOrder />} />
             <Route path="/order" element={<OrderList />} />

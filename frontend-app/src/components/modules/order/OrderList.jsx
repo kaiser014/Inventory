@@ -65,6 +65,7 @@ const OrderList = () => {
             <CardHeader
               title="Order List"
               btn_name="Add Order"
+              icon="fa-plus"
               link="/order/create"
             />
             <div className="card-body">

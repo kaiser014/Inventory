@@ -84,6 +84,7 @@ const EditBrand = () => {
             <CardHeader
               title="Edit Brand"
               link="/brand"
+              icon="fa-list"
               btn_name="Brand List"
             />
             <div className="card-body">

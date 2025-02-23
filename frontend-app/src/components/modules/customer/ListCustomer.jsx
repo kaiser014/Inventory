@@ -1,23 +1,23 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import BreadCrumb from "../../partials/BreadCrumb";
 import CardHeader from "../../partials/miniComponent/CardHeader";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 
-const ListCategory = () => {
-  const [categories, setCategories] = useState([]);
+const ListCustomer = () => {
+  const [customers, setCustomers] = useState([]);
 
   const getCategories = () => {
-    axios.get(`category`).then((res) => {
-      setCategories(res.data.data);
+    axios.get(`customer`).then((res) => {
+      setCustomers(res.data.data);
     });
   };
 
-  const handleDeleteCategory = (id) => {
+  const handleDeleteCustomer = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "Category will be Deleted",
+      text: "Customer will be Deleted",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -25,7 +25,7 @@ const ListCategory = () => {
       confirmButtonText: "Yes, Delete it",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`/category/${id}`).then((res) => {
+        axios.delete(`/customer/${id}`).then((res) => {
           getCategories();
           Swal.fire({
             position: "top-end",
@@ -46,15 +46,15 @@ const ListCategory = () => {
 
   return (
     <>
-      <BreadCrumb title="List Category" />
+      <BreadCrumb title="List Customer" />
       <div className="row">
         <div className="col-md-12">
           <div className="card page-card">
             <CardHeader
-              title="Category List"
-              link="/category/create"
+              title="Customer List"
+              link="/customer/create"
               icon="fa-plus"
-              btn_name="Add Category"
+              btn_name="Add Customer"
             />
             <div className="card-body">
               <table className="table text-center table-responsive table-bordered align-middle table-hover table-striped">
@@ -62,35 +62,45 @@ const ListCategory = () => {
                   <tr>
                     <th>SL.</th>
                     <th>Name</th>
-                    <th>Slug</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
                     <th>Created By</th>
-                    <th>Date Time</th>
+                    <th>Date & Time</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.keys(categories).length > 0 ? (
-                    categories.map((category, index) => (
+                  {Object.keys(customers).length > 0 ? (
+                    customers.map((customer, index) => (
                       <tr key={index}>
                         <td>{++index}</td>
-                        <td>{category.name}</td>
-                        <td>{category.slug}</td>
+                        <td>{customer.name}</td>
+                        <td>{customer.phone}</td>
                         <td>
-                          <strong>{category.created_by}</strong>
+                          {customer.email ? (
+                            customer.email
+                          ) : (
+                            <p className="text-danger">No Email</p>
+                          )}
+                        </td>
+                        <td>{customer.address}</td>
+                        <td>
+                          <strong>{customer.created_by}</strong>
                         </td>
                         <td>
-                          <p>{category.created_at}</p>
-                          <p>{category.updated_at}</p>
+                          <p>{customer.created_at}</p>
+                          <p>{customer.updated_at}</p>
                         </td>
                         <td>
                           <Link
                             className="btn edit-btn btn-sm"
-                            to={`/category/edit/${category.id}`}
+                            to={`/customer/edit/${customer.id}`}
                           >
                             <i class="fa-solid fa-pencil"></i>
                           </Link>
                           <button
-                            onClick={() => handleDeleteCategory(category.id)}
+                            onClick={() => handleDeleteCustomer(customer.id)}
                             className="btn delete-btn btn-sm"
                           >
                             <i class="fa-solid fa-trash"></i>
@@ -111,4 +121,4 @@ const ListCategory = () => {
   );
 };
 
-export default ListCategory;
+export default ListCustomer;

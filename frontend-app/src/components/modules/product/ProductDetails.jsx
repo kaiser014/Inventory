@@ -30,6 +30,7 @@ const ProductDetails = () => {
             <CardHeader
               title="Product Details"
               link="/product"
+              icon="fa-list"
               btn_name="Product List"
             />
             <div className="card-body">

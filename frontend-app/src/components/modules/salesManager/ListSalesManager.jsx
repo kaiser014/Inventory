@@ -102,6 +102,7 @@ const ListSalesManager = () => {
             <CardHeader
               title="Sales Manager List"
               btn_name="Add Sales Manager"
+              icon="fa-plus"
               link="/sales-manager/create"
             />
             <div className="card-body">

@@ -9,7 +9,7 @@ const CardHeader = (props) => {
         <h5>{props.title}</h5>
         {props.hide == undefined || GlobalFunction.isAdmin() ? (
           <Link className="btn main-btn" to={`${props.link}`}>
-            {props.btn_name}
+            <i className={`fa-solid ${props.icon}`}></i> {props.btn_name}
           </Link>
         ) : null}
       </div>

@@ -104,6 +104,7 @@ const ListShop = () => {
             <CardHeader
               title="Shop List"
               btn_name="Add Shop"
+              icon="fa-plus"
               link="/shop/create"
             />
             <div className="card-body">

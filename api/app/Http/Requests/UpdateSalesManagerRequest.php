@@ -11,7 +11,7 @@ class UpdateSalesManagerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class UpdateSalesManagerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'address' => 'required|min:3|max:255',
+            'division_id' => 'required|numeric',
+            'district_id' => 'required|numeric',
+            'area_id' => 'required|numeric',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'name' => 'required|min:3|max:255',
+            'bio' => 'max:1000',
+            'landmark' => 'max:255',
+            'shop_id' => 'required|numeric',
         ];
     }
 }

@@ -97,7 +97,7 @@ const EditSupplier = () => {
           setErrors(errors.response.data.errors);
         }
       });
-    // console.log(input);
+    navigate("/supplier");
   };
 
   useEffect(() => {
@@ -112,7 +112,8 @@ const EditSupplier = () => {
           <div className="card">
             <CardHeader
               title="Edit Supplier"
-              button_text="List"
+              btn_name="Supplier List"
+              icon="fa-list"
               link="/supplier"
             />
             <div className="card-body">
@@ -413,7 +414,7 @@ const EditSupplier = () => {
                       dangerouslySetInnerHTML={{
                         __html: isLoading
                           ? '<span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span> Loading...'
-                          : "Update Category",
+                          : "Update Supplier",
                       }}
                     />
                   </div>

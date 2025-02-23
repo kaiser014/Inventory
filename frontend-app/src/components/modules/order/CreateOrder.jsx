@@ -5,7 +5,7 @@ import BreadCrumb from "../../partials/BreadCrumb";
 import CardHeader from "../../partials/miniComponent/CardHeader";
 import ShowOrderConfirmation from "../../partials/modals/ShowOrderConfirmation";
 import AddCustomer from "../../partials/modals/AddCustomer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import useScanDetection from "use-scan-detection";
 
 const CreateOrder = () => {
@@ -30,7 +30,7 @@ const CreateOrder = () => {
   const [products, setProducts] = useState([]);
   const [carts, setCarts] = useState({});
 
-  const [modalShow, setModalShow] = useState(false);
+  // const [modalShow, setModalShow] = useState(false);
   const [orderConfirmationModalShow, setOrderConfirmationModalShow] =
     useState(false);
 
@@ -108,7 +108,7 @@ const CreateOrder = () => {
   };
   const getCustomers = () => {
     setIsLoading(true);
-    axios.get(`/customer?&search=${customerInput}`).then((res) => {
+    axios.get(`get-customer-list?&search=${customerInput}`).then((res) => {
       setCustomers(res.data);
       setIsLoading(false);
     });
@@ -280,6 +280,7 @@ const CreateOrder = () => {
             <CardHeader
               title="Create Order"
               btn_name="Order List"
+              icon="fa-list"
               link="/Order"
             />
             <div className="card-body">
@@ -459,12 +460,18 @@ const CreateOrder = () => {
                     <div className="card-header">
                       <div className="d-flex align-items-center justify-content-between">
                         <h5>Customer List</h5>
-                        <button
+                        {/* <button
                           onClick={() => setModalShow(true)}
                           className="btn btn-sm main-btn ms-1"
                         >
-                          <i class="fa-solid fa-plus"></i>
-                        </button>
+                          <i class="fa-solid fa-plus"></i> Add
+                        </button> */}
+                        <Link
+                          className="btn btn-sm main-btn ms-1"
+                          to={"/customer/create"}
+                        >
+                          <i class="fa-solid fa-plus"></i> Add
+                        </Link>
                       </div>
                     </div>
                     <div className="card-body">
@@ -522,7 +529,7 @@ const CreateOrder = () => {
           </div>
         </div>
       </div>
-      <AddCustomer show={modalShow} onHide={() => setModalShow(false)} />
+      {/* <AddCustomer show={modalShow} onHide={() => setModalShow(false)} /> */}
       <ShowOrderConfirmation
         show={orderConfirmationModalShow}
         onHide={() => setOrderConfirmationModalShow(false)}

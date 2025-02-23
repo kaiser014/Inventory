@@ -69,6 +69,7 @@ const EditCategory = () => {
             <CardHeader
               title="Edit Category"
               link="/category"
+              icon="fa-list"
               btn_name="Category List"
             />
             <div className="card-body">

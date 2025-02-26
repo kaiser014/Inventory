@@ -144,11 +144,12 @@ class ShopController extends Controller
     public function destroy(Shop $shop)
     {
         if(!empty($shop->logo)){
+            return $shop->logo;
             ImageManager::deletePhoto(Shop::LOGO_UPLOAD_PATH, $shop['logo']);
             ImageManager::deletePhoto(Shop::LOGO_UPLOAD_PATH_THUMB, $shop['logo']);
         }
         (new Address())->DeleteAddressBySupplierId($shop);
-        $shop->delete();
+        // $shop->delete();
         return response()->json([
             'message' => 'Shop Deleted Successfully',
             'cls' => 'warning',

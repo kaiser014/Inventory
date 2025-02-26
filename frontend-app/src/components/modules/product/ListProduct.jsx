@@ -208,9 +208,9 @@ const ListProduct = () => {
                                 Slug : {product.slug}
                               </p>
                               <p>
-                                {product.attributes !== undefined &&
-                                Object.keys(product.attributes).length > 0
-                                  ? product.attributes.map(
+                                {product?.attributes !== undefined &&
+                                Object.keys(product?.attributes).length > 0
+                                  ? product?.attributes.map(
                                       (attribute, index) => (
                                         <p className="text-theme">
                                           <small>

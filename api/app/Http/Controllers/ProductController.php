@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\Attribute;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Manager\ImageManager;
 use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductSpecification;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductDestroyPhotoListResource;
+use App\Http\Resources\ProductEditResource;
 use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductDetailsResource;
 use App\Http\Resources\ProductListForBarCodeResource;
-use App\Models\Shop;
-use App\Models\SubCategory;
+use App\Models\ProductPhoto;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class ProductController extends Controller
 {
@@ -44,7 +49,6 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // return $request->all();
         try {
             DB::beginTransaction();
             $product = (new Product())->storeProduct($request->all(), auth()->id());
@@ -79,19 +83,12 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load([
-            'category:id,name',
-            'sub_category:id,name',
-            'brand:id,name',
-            'photos:id,photo,product_id',
-            'supplier:id,name,phone',
-            'created_by:id,name',
-            'updated_by:id,name',
-            'primary_photo',
             'product_attributes',
             'product_attributes.attributes',
             'product_attributes.attribute_value',
-        ]);
-        return new ProductDetailsResource($product);
+            'product_specifications',
+    ]);
+        return new ProductEditResource($product);
     }
 
     /**
@@ -99,7 +96,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+    //
     }
 
     /**
@@ -107,7 +104,35 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        // return $request->all();
+        try {
+            DB::beginTransaction();
+            $product_data = (new Product())->updateProduct($request->all(), auth()->id());
+            $product_data_id = $request->id;
+
+            // if($request->has('attributes')){
+            //     (new ProductAttribute())->storeAttributeData($request->input('attributes'), $product);
+            // }
+            // if($request->has('specifications')){
+            //     (new ProductSpecification())->storeSpecificationData($request->input('specifications'), $product);
+            // }
+            $product = $product->update($product_data);
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Product Updated Successfully',
+                'cls' => 'success',
+                'product_id' => $product_data_id,
+            ]);
+
+        } catch (\Throwable $th) {
+            info('PRODUCT_SAVE_FAILED', ['data' => $request->all(), 'error' => $th->getMessage()]);
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+                'cls' => 'warning',
+            ]);
+        }
     }
 
     /**
@@ -115,7 +140,19 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $id = $product->id;
+        $photos = DB::table('product_photos')->where('product_id', '=', $id)->get();
+        foreach($photos as $product_photo){
+            if(!empty($product_photo->photo)){
+                ImageManager::deletePhoto(ProductPhoto::PHOTO_UPLOAD_PATH, $product_photo->photo);
+                ImageManager::deletePhoto(ProductPhoto::PHOTO_UPLOAD_PATH_THUMB, $product_photo->photo);
+            }
+        }
+        $product->delete();
+        return response()->json([
+            'message' => 'Product Deleted Successfully',
+            'cls' => 'warning',
+        ]);
     }
 
     public function productListForBarCode(Request $request){
@@ -144,5 +181,25 @@ class ProductController extends Controller
             'sub_categories' => (new SubCategory())->getSubCategoryIdAndName(),
             // 'shops' => (new Shop())->getShopsData(),
         ]);
+    }
+
+    public function getProductDetails($id){
+        // $product->load([
+        //     'category:id,name',
+        //     'sub_category:id,name',
+        //     'brand:id,name',
+        //     'photos:id,photo,product_id',
+        //     'supplier:id,name,phone',
+        //     'created_by:id,name',
+        //     'updated_by:id,name',
+        //     'primary_photo',
+        //     'product_attributes',
+        //     'product_attributes.attributes',
+        //     'product_attributes.attribute_value',
+        // ]);
+        // return new ProductDetailsResource($product);
+        $product = (new Product())->getProductDetailsById($id);
+        // $product->load('attributes');
+        return new ProductDetailsResource($product);
     }
 }

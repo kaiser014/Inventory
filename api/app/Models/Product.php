@@ -41,6 +41,10 @@ class Product extends Model
 
         return self::create($this->prepareData($input, $auth_id));
     }
+    public function updateProduct($input, $auth_id){
+
+        return $this->prepareData($input, $auth_id);
+    }
 
     private function prepareData(array $input, int $auth_id){
         return [
@@ -123,6 +127,12 @@ class Product extends Model
     public function product_attributes(){
         return $this->hasMany(ProductAttribute::class);
     }
+    public function product_specifications(){
+        return $this->hasMany(ProductSpecification::class);
+    }
+    public function product_photos(){
+        return $this->hasMany(ProductPhoto::class);
+    }
 
     public function getProductForBarCode($input){
         $query = self::query()->select('id', 'name', 'sku', 'price', 'discount_end', 'discount_fixed', 'discount_percent', 'discount_start');
@@ -146,4 +156,19 @@ class Product extends Model
     public function photos(){
         return $this->hasMany(ProductPhoto::class)->where('is_primary', 0);
     }
+
+    public function getProductDetailsById($id){
+        return self::query()->with(
+            'category:id,name',
+            'sub_category:id,name',
+            'supplier:id,name,phone',
+            'created_by:id,name',
+            'updated_by:id,name',
+            'primary_photo',
+            'product_attributes',
+            'product_attributes.attributes',
+            'product_attributes.attribute_value',
+        )->findOrFail($id);
+    }
+
 }

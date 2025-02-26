@@ -35,6 +35,8 @@ import AddCustomer from "../components/modules/customer/AddCustomer";
 import ListCustomer from "../components/modules/customer/ListCustomer";
 import EditCustomer from "../components/modules/customer/EditCustomer";
 import EditSalesManager from "../components/modules/salesManager/EditSalesManager";
+import EditProduct from "../components/modules/product/EditProduct";
+// import EditProductPhoto from "../components/modules/product/product_photo/EditProductPhoto";
 
 const PublicRoutes = () => {
   return (
@@ -79,6 +81,7 @@ const PublicRoutes = () => {
             <Route path="/product" element={<ListProduct />} />
             <Route path="/product/photo/:id" element={<AddProductPhoto />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/product/edit/:id" element={<EditProduct />} />
             {/* Sales Manager */}
             <Route path="/sales-manager/create" element={<AddSalesManager />} />
             <Route path="/sales-manager" element={<ListSalesManager />} />

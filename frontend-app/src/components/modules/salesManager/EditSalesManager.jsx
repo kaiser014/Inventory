@@ -185,8 +185,8 @@ const EditSalesManager = () => {
                             </select>
                             <p className="login-error-msg">
                               <small>
-                                {errors.shop_id !== undefined
-                                  ? errors.shop_id[0]
+                                {errors.division_id !== undefined
+                                  ? errors.division_id[0]
                                   : null}
                               </small>
                             </p>

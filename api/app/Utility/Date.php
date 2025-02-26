@@ -12,4 +12,11 @@ class Date{
         }
         return $discount_remaining_days;
     }
+    public static function calculate_discount_remaining_times($discount_end){
+        $discount_remaining_times = 0;
+        if($discount_end != null){
+           $discount_remaining_times = Carbon::now()->diffInHours(Carbon::create($discount_end));
+        }
+        return $discount_remaining_times;
+    }
 }

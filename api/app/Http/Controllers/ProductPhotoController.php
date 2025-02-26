@@ -57,7 +57,7 @@ class ProductPhotoController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Product Added Successfully',
+            'message' => 'Product Photo Added Successfully',
             'cls' => 'success',
         ]);
     }
@@ -67,7 +67,8 @@ class ProductPhotoController extends Controller
      */
     public function show(ProductPhoto $productPhoto)
     {
-        //
+        // $productPhoto->load('product_photo');
+        // return $productPhoto;
     }
 
     /**
@@ -81,9 +82,35 @@ class ProductPhotoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductPhotoRequest $request, ProductPhoto $productPhoto)
+    public function update(UpdateProductPhotoRequest $request, ProductPhoto $productPhoto, int $id)
     {
-        //
+        if($request->has('photos')){
+            $product = (new Product())->getProductById($id);
+            if($product){
+                foreach($request->photos as $photo){
+                    $name = Str::slug($product->slug . '-' . Carbon::now()->toDayDateTimeString().'-'.random_int(10000,99999));
+                    $photo_data['product_id'] = $id;
+                    $photo_data['is_primary'] = $photo['is_primary'];
+                    $photo_data['photo'] = ImageManager::processImageUpload(
+                        $photo['photo'],
+                        $name,
+                        ProductPhoto::PHOTO_WIDTH,
+                        ProductPhoto::PHOTO_HEIGHT,
+
+                        ProductPhoto::PHOTO_WIDTH_THUMB,
+                        ProductPhoto::PHOTO_HEIGHT_THUMB,
+
+                        ProductPhoto::PHOTO_UPLOAD_PATH,
+                        ProductPhoto::PHOTO_UPLOAD_PATH_THUMB,
+                    );
+                    $productPhoto = $productPhoto->update($photo_data);
+                }
+            }
+        }
+        return response()->json([
+            'message' => 'Product Photo Update Successfully',
+            'cls' => 'success',
+        ]);
     }
 
     /**

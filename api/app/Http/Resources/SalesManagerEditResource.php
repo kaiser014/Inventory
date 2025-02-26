@@ -27,10 +27,11 @@ class SalesManagerEditResource extends JsonResource
             'display_photo' => ImageManager::prepareImageUrl(SalesManager::IMAGE_UPLOAD_PATH_THUMB, $this->photo),
             'display_nid_photo' => ImageManager::prepareImageUrl(SalesManager::IMAGE_UPLOAD_PATH_THUMB, $this->nid_photo),
             'status' => $this->status,
+            'shop_id' => $this->shop_id,
+            'address' => $this->address?->address,
             'division_id' => $this->address?->division_id,
             'district_id' => $this->address?->district_id,
             'area_id' => $this->address?->area_id,
-            'landmark' => $this->address?->landmark,
             'landmark' => $this->address?->landmark,
         ];
     }

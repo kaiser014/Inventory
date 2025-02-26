@@ -71,7 +71,7 @@ Route::middleware(['auth:admin,sales_manager'])->group(function (){
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('get-category-list', [CategoryController::class, 'getCategoryList']);
     Route::get('get-sub-category-list/{category_id}', [SubCategoryController::class, 'getSubCategoryList']);
-    Route::apiResource('product', ProductController::class)->only('index', 'show');
+    Route::apiResource('product', ProductController::class)->only('index');
     Route::get('get-product-columns', [ProductController::class, 'getProductColumns']);
     Route::apiResource('order', OrderController::class);
     Route::apiResource('customer', CustomerController::class);
@@ -80,9 +80,8 @@ Route::middleware(['auth:admin,sales_manager'])->group(function (){
     Route::get('product-list-for-bar-code', [ProductController::class, 'productListForBarCode']);
     Route::get('get-reports', [ReportController::class, 'index']);
     Route::get('get-add-product-data', [ProductController::class, 'getAddProductData']);
+    Route::get('product-details/{id}', [ProductController::class, 'getProductDetails']);
 });
-
-// Route::get('get-reports', [ReportController::class, 'index']);
 
 
 Route::middleware(['auth:sales_manager'])->group(function (){

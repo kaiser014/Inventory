@@ -103,8 +103,9 @@ class SalesManagerController extends Controller
      */
     public function show(SalesManager $salesManager)
     {
-        $salesManager->load('address');
+        $salesManager->load(['address']);
         return new SalesManagerEditResource($salesManager);
+        // return $salesManager;
     }
 
     /**
@@ -179,49 +180,6 @@ class SalesManagerController extends Controller
                 'flag' => true,
             ]);
         }
-
-
-
-
-
-
-
-        // $shop_data = (new Shop())->prepareShopData($request->all(), auth());
-        // $address_data = (new Address())->prepareAddressData($request->all());
-        // if($request->has('logo')){
-        //     $name = Str::slug($shop_data['name'].now());
-        //     $shop_data['logo'] = ImageManager::processImageUpload(
-        //         $request->input('logo'),
-        //         $name,
-        //         Shop::LOGO_WIDTH,
-        //         Shop::LOGO_HEIGHT,
-
-        //         Shop::LOGO_WIDTH_THUMB,
-        //         Shop::LOGO_HEIGHT_THUMB,
-
-        //         Shop::LOGO_UPLOAD_PATH,
-        //         Shop::LOGO_UPLOAD_PATH_THUMB,
-        //         $shop->logo,
-        //     );
-        // }
-        // try {
-        //     DB::beginTransaction();
-        //     $shop_data = $shop->update($shop_data);
-        //     $shop->address()->update($address_data);
-        //     DB::commit();
-        //     return response()->json([
-        //         'message' => 'Shop Updated Successfully',
-        //         'cls' => 'success',
-        //     ]);
-        // } catch (\Throwable $th) {
-        //     info('SUPPLIER_STORED_FAILED', ['supplier' => $shop_data, 'address' => $address_data, 'exception'=>$th]);
-        //     DB::rollBack();
-        //     return response()->json([
-        //         'message' => 'Something is going wrong',
-        //         'cls' => 'warning',
-        //         'flag' => true,
-        //     ]);
-        // }
     }
 
     /**
@@ -229,7 +187,16 @@ class SalesManagerController extends Controller
      */
     public function destroy(SalesManager $salesManager)
     {
-        //
+        if(!empty($salesManager->photo)){
+            ImageManager::deletePhoto(SalesManager::IMAGE_UPLOAD_PATH, $salesManager['photo']);
+            ImageManager::deletePhoto(SalesManager::IMAGE_UPLOAD_PATH_THUMB, $salesManager['photo']);
+        }
+        (new Address())->DeleteAddressBySupplierId($salesManager);
+        $salesManager->delete();
+        return response()->json([
+            'message' => 'Sales Manager Deleted Successfully',
+            'cls' => 'warning',
+        ]);
     }
 }
 // Sales Manager - Akib

@@ -12,7 +12,8 @@ const ProductDetails = () => {
 
   const getProduct = () => {
     setIsLoading(true);
-    axios.get(`product/${params.id}`).then((res) => {
+    axios.get(`product-details/${params.id}`).then((res) => {
+      setIsLoading(true);
       setProduct(res.data.data);
       setIsLoading(false);
     });
@@ -172,7 +173,10 @@ const ProductDetails = () => {
                           </tr>
                           <tr>
                             <th>Discount Remaining Date</th>
-                            <td>{product?.discount_remaining_days} days</td>
+                            <td>
+                              {product?.discount_remaining_days} days |{" "}
+                              {product?.discount_remaining_times} hour
+                            </td>
                           </tr>
                           <tr>
                             <th>Stock</th>

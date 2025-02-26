@@ -40,8 +40,10 @@ class ProductDetailsResource extends JsonResource
             'discount_end' => $this->discount_end != null ? Carbon::create($this->discount_end)->toDayDateTimeString() : null,
 
             'discount_remaining_days' => Date::calculate_discount_remaining_days($this->discount_end),
+            'discount_remaining_times' => Date::calculate_discount_remaining_times($this->discount_end),
+
             'profit' => $price_manager['price'] - $this->cost,
-            'profit_percentage' => (($price_manager['price'] - $this->cost)/$this->cost)*100,
+            'profit_percentage' => (($price_manager['price'] - $this->cost)/$this->cost)*1000,
 
             'created_at' => $this->created_at->toDayDateTimeString(),
             'updated_at' => $this->created_at != $this->updated_at ? $this->updated_at->toDayDateTimeString() : 'Not Updated Yet',

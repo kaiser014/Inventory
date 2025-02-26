@@ -47,7 +47,7 @@ class ProductListResource extends JsonResource
             'updated_by' => $this->updated_by?->name,
             'primary_photo' => ImageManager::prepareImageUrl(ProductPhoto::PHOTO_UPLOAD_PATH_THUMB, $this->primary_photo?->photo),
 
-            'attributes' => ProductAttributeListResource::collection($this->product_attributes),
+            'attributes' => ProductAttributeShowListResource::collection($this->product_attributes),
         ];
     }
 }

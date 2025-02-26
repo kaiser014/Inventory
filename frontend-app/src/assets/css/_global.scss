@@ -24,6 +24,13 @@ p {
 .bg-theme {
   background-image: linear-gradient(45deg, $theme-color, $theme-color-light);
 }
+.bg-card {
+  background-color: $theme-color;
+}
+.bg-card-transparent {
+  background-color: rgba(136, 136, 239, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 .my-navbar {
   background-color: $theme-color;
 }

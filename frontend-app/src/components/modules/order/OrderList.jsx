@@ -6,6 +6,7 @@ import CardHeader from "../../partials/miniComponent/CardHeader";
 import Loader from "../../partials/miniComponent/Loader";
 import { Link } from "react-router-dom";
 import GlobalFunction from "../../../GlobalFunction";
+import DataNotFound from "../../partials/miniComponent/DataNotFound";
 
 const OrderList = () => {
   const [input, setInput] = useState({
@@ -61,14 +62,14 @@ const OrderList = () => {
       </div>
       <div className="row">
         <div className="col-md-12">
-          <div className="card mb-3">
+          <div className="card">
             <CardHeader
               title="Order List"
               btn_name="Add Order"
               icon="fa-plus"
               link="/order/create"
             />
-            <div className="card-body">
+            <div className="card-body page-card-body">
               <div className="search-area mb-4">
                 <div className="row">
                   <div className="col-md-4">
@@ -241,7 +242,7 @@ const OrderList = () => {
                           </tr>
                         ))
                       ) : (
-                        <>No Data</>
+                        <DataNotFound />
                       )}
                     </tbody>
                   </table>

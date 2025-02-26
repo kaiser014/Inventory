@@ -105,7 +105,7 @@ const ListSalesManager = () => {
               icon="fa-plus"
               link="/sales-manager/create"
             />
-            <div className="card-body">
+            <div className="card-body page-card-body">
               <div className="search-area mb-4">
                 <div className="row">
                   <div className="col-md-4">

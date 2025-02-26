@@ -274,7 +274,7 @@ const ProductAttribute = () => {
                 </button>
               </div>
             </div>
-            <div className="card-body">
+            <div className="card-body page-card-body">
               <div className="row">
                 {isLoading ? (
                   <Loader />

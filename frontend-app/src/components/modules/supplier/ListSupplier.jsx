@@ -93,14 +93,14 @@ const ListSupplier = () => {
       <BreadCrumb title="Supplier List" />
       <div className="row">
         <div className="col-md-12">
-          <div className="card page-card pb-0">
+          <div className="card">
             <CardHeader
               title="Supplier List"
               link="/supplier/create"
               icon="fa-plus"
               btn_name="Add Supplier"
             />
-            <div className="card-body">
+            <div className="card-body page-card-body">
               <div className="search-area mb-4">
                 <div className="row">
                   <div className="col-md-4">

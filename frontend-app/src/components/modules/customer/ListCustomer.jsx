@@ -4,14 +4,48 @@ import Swal from "sweetalert2";
 import BreadCrumb from "../../partials/BreadCrumb";
 import CardHeader from "../../partials/miniComponent/CardHeader";
 import { Link } from "react-router-dom";
+import Loader from "../../partials/miniComponent/Loader";
+import Pagination from "react-js-pagination";
 
 const ListCustomer = () => {
+  const [input, setInput] = useState({
+    order_by: "name",
+    per_page: 10,
+    direction: "asc",
+    search: "",
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [itemsCountPerPage, setItemsCountPerPage] = useState(0);
+  const [totalItemCount, setTotalItemCount] = useState(0);
+  const [startFrom, setStartFrom] = useState(1);
+  const [activePage, setActivePage] = useState(1);
+
   const [customers, setCustomers] = useState([]);
 
-  const getCategories = () => {
-    axios.get(`customer`).then((res) => {
-      setCustomers(res.data.data);
-    });
+  const getCustomers = (pageNumber = 1) => {
+    setIsLoading(true);
+    axios
+      .get(
+        `customer?page=${pageNumber}&search=${input.search}&order_by=${input.order_by}&per_page=${input.per_page}&direction=${input.direction}`
+      )
+      .then((res) => {
+        setCustomers(res.data.data);
+        setItemsCountPerPage(res.data.meta.per_page);
+        setStartFrom(res.data.meta.from);
+        setTotalItemCount(res.data.meta.total);
+        setActivePage(res.data.meta.current_page);
+        setIsLoading(false);
+      });
+  };
+
+  const handleSearchInput = (e) => {
+    e.preventDefault();
+    setInput((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleDeleteCustomer = (id) => {
@@ -26,7 +60,7 @@ const ListCustomer = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`/customer/${id}`).then((res) => {
-          getCategories();
+          getCustomers();
           Swal.fire({
             position: "top-end",
             icon: res.data.cls,
@@ -41,7 +75,7 @@ const ListCustomer = () => {
   };
 
   useEffect(() => {
-    getCategories();
+    getCustomers();
   }, []);
 
   return (
@@ -49,70 +83,164 @@ const ListCustomer = () => {
       <BreadCrumb title="List Customer" />
       <div className="row">
         <div className="col-md-12">
-          <div className="card page-card">
+          <div className="card">
             <CardHeader
               title="Customer List"
               link="/customer/create"
               icon="fa-plus"
               btn_name="Add Customer"
             />
-            <div className="card-body">
-              <table className="table text-center table-responsive table-bordered align-middle table-hover table-striped">
-                <thead className="table-primary">
-                  <tr>
-                    <th>SL.</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Created By</th>
-                    <th>Date & Time</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(customers).length > 0 ? (
-                    customers.map((customer, index) => (
-                      <tr key={index}>
-                        <td>{++index}</td>
-                        <td>{customer.name}</td>
-                        <td>{customer.phone}</td>
-                        <td>
-                          {customer.email ? (
-                            customer.email
-                          ) : (
-                            <p className="text-danger">No Email</p>
-                          )}
-                        </td>
-                        <td>{customer.address}</td>
-                        <td>
-                          <strong>{customer.created_by}</strong>
-                        </td>
-                        <td>
-                          <p>{customer.created_at}</p>
-                          <p>{customer.updated_at}</p>
-                        </td>
-                        <td>
-                          <Link
-                            className="btn edit-btn btn-sm"
-                            to={`/customer/edit/${customer.id}`}
-                          >
-                            <i class="fa-solid fa-pencil"></i>
-                          </Link>
-                          <button
-                            onClick={() => handleDeleteCustomer(customer.id)}
-                            className="btn delete-btn btn-sm"
-                          >
-                            <i class="fa-solid fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <>No Data</>
-                  )}
-                </tbody>
-              </table>
+            <div className="card-body page-card-body">
+              <div className="search-area mb-4">
+                <div className="row">
+                  <div className="col-md-4">
+                    <label className="w-100">
+                      <p>Search</p>
+                      <input
+                        className="form-control form-control-sm mt-1"
+                        name={"search"}
+                        type={"search"}
+                        value={input.search}
+                        placeholder={"Search..."}
+                        onChange={handleSearchInput}
+                      />
+                    </label>
+                  </div>
+                  <div className="col-md-2">
+                    <label className="w-100">
+                      <p>Order By</p>
+                      <select
+                        className="form-select form-select-sm"
+                        name="order_by"
+                        value={input.order_by}
+                        onChange={handleSearchInput}
+                      >
+                        <option value={"name"}>Name</option>
+                        <option value={"created_at"}>Created at</option>
+                        <option value={"updated_at"}>Updated at</option>
+                        <option value={"status"}>Status</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="col-md-2">
+                    <label className="w-100">
+                      <p>Order Direction</p>
+                      <select
+                        className="form-select form-select-sm"
+                        name="direction"
+                        value={input.direction}
+                        onChange={handleSearchInput}
+                      >
+                        <option value={"asc"}>ASC</option>
+                        <option value={"desc"}>DESC</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="col-md-2">
+                    <label className="w-100">
+                      <p>Per Page</p>
+                      <select
+                        className="form-select form-select-sm"
+                        name="per_page"
+                        value={input.per_page}
+                        onChange={handleSearchInput}
+                      >
+                        <option value={"10"}>10</option>
+                        <option value={"25"}>25</option>
+                        <option value={"50"}>50</option>
+                        <option value={"100"}>100</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="col-md-2">
+                    <div className="d-grid mt-4">
+                      <button
+                        className="btn btn-success"
+                        onClick={() => getCustomers(1)}
+                      >
+                        <i class="fa-solid fa-magnifying-glass"></i> Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <table className="table text-center table-responsive table-bordered align-middle table-hover table-striped">
+                  <thead className="table-primary">
+                    <tr>
+                      <th>SL.</th>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Created By</th>
+                      <th>Date & Time</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(customers).length > 0 ? (
+                      customers.map((customer, index) => (
+                        <tr key={index}>
+                          <td>{startFrom + index}</td>
+                          <td>{customer.name}</td>
+                          <td>{customer.phone}</td>
+                          <td>
+                            {customer.email ? (
+                              customer.email
+                            ) : (
+                              <p className="text-danger">No Email</p>
+                            )}
+                          </td>
+                          <td>{customer.address}</td>
+                          <td>
+                            <strong>{customer.created_by}</strong>
+                          </td>
+                          <td>
+                            <p>{customer.created_at}</p>
+                            <p>{customer.updated_at}</p>
+                          </td>
+                          <td>
+                            <Link
+                              className="btn edit-btn btn-sm"
+                              to={`/customer/edit/${customer.id}`}
+                            >
+                              <i class="fa-solid fa-pencil"></i>
+                            </Link>
+                            <button
+                              onClick={() => handleDeleteCustomer(customer.id)}
+                              className="btn delete-btn btn-sm"
+                            >
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <>No Data</>
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
+            <div className="card-footer">
+              <nav className="pagination">
+                <Pagination
+                  activePage={activePage}
+                  itemsCountPerPage={itemsCountPerPage}
+                  totalItemsCount={totalItemCount}
+                  pageRangeDisplayed={5}
+                  onChange={getCustomers}
+                  nextPageText={"Next"}
+                  firstPageText={"First"}
+                  prevPageText={"Previous"}
+                  lastPageText={"Last"}
+                  itemClass="page-item"
+                  linkClass="page-link"
+                />
+              </nav>
             </div>
           </div>
         </div>

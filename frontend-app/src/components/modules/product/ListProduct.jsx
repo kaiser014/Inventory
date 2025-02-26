@@ -95,7 +95,7 @@ const ListProduct = () => {
       </div>
       <div className="row">
         <div className="col-md-12">
-          <div className="card mb-3">
+          <div className="card">
             <CardHeader
               title="Product List"
               btn_name="Add Product"
@@ -103,7 +103,7 @@ const ListProduct = () => {
               link="/product/create"
               hide={true}
             />
-            <div className="card-body">
+            <div className="card-body page-card-body">
               <div className="search-area mb-4">
                 <div className="row">
                   <div className="col-md-4">

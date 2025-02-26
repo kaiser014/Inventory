@@ -100,14 +100,14 @@ const ListShop = () => {
       <BreadCrumb title={"Shop List"} />
       <div className="row">
         <div className="col-md-12">
-          <div className="card mb-3">
+          <div className="card">
             <CardHeader
               title="Shop List"
               btn_name="Add Shop"
               icon="fa-plus"
               link="/shop/create"
             />
-            <div className="card-body">
+            <div className="card-body page-card-body">
               <div className="search-area mb-4">
                 <div className="row">
                   <div className="col-md-4">

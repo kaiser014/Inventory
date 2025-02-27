@@ -37,6 +37,7 @@ const OrderDetails = () => {
             <CardHeader
               title="Order Details"
               btn_name="Add Order"
+              icon="fa-plus"
               link="/order/create"
             />
             <div className="card-body">

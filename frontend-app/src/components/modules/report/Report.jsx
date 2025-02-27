@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardHeader from "../../partials/miniComponent/CardHeader";
 import BreadCrumb from "../../partials/BreadCrumb";
-import GlobalFunction from "../../../GlobalFunction";
+// import GlobalFunction from "../../../GlobalFunction";
 import axios from "axios";
 
 const Report = () => {
@@ -32,7 +32,7 @@ const Report = () => {
               {/* Sales */}
               <div className="card mb-3">
                 <div className="card-header">
-                  <h5>Sales(Branch)</h5>
+                  <h5>Sales Report</h5>
                 </div>
                 <div className="card-body">
                   <div className="row">
@@ -162,7 +162,7 @@ const Report = () => {
               {/* Stock */}
               <div className="card mb-3">
                 <div className="card-header">
-                  <h5>Stock</h5>
+                  <h5>Stock Report</h5>
                 </div>
                 <div className="card-body">
                   <div className="row">

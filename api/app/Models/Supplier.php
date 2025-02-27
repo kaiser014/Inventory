@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Supplier extends Model
 {
@@ -69,4 +70,8 @@ class Supplier extends Model
         return self::query()->select('id','name', 'phone')->where('status', self::STATUS_ACTIVE)->get();
     }
 
+    public function getAllSuppliersData($columns = ['*']){
+        $suppliers = DB::table('suppliers')->select($columns)->get();
+        return collect($suppliers);
+    }
 }

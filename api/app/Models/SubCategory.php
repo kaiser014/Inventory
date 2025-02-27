@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SubCategory extends Model
 {
@@ -37,5 +38,10 @@ class SubCategory extends Model
 
     public function getSubCategoryIdAndName(){
         return self::query()->select('id', 'name', 'category_id')->get();
+    }
+
+    public function getAllSubCategoriesData($columns = ['*']){
+        $sub_categories = DB::table('sub_categories')->select($columns)->get();
+        return collect($sub_categories);
     }
 }

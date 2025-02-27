@@ -112,5 +112,9 @@ class Order extends Model
         $orders = $query->get();
         return collect($orders);
     }
+    public function getAllOrderData($columns = ['*']){
+        $orders = DB::table('orders')->select($columns)->get();
+        return collect($orders);
+    }
 
 }

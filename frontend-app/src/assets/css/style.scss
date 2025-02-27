@@ -6,6 +6,17 @@
     color: $white;
   }
 }
+.dashboard-count-data {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: $theme-color;
+  color: #fff;
+  position: relative;
+  p {
+    @include center;
+  }
+}
 .inputField {
   position: relative;
   margin-bottom: 20px;

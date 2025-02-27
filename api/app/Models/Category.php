@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -34,5 +35,10 @@ class Category extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function getAllCategoriesData($columns = ['*']){
+        $categories = DB::table('categories')->select($columns)->get();
+        return collect($categories);
     }
 }

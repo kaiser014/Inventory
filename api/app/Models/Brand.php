@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Brand extends Model
 {
@@ -44,5 +45,10 @@ class Brand extends Model
     }
     public function getBrandName(){
         return self::query()->select('id','name',)->where('status', self::STATUS_ACTIVE)->get();
+    }
+
+    public function getAllBrandsData($columns = ['*']){
+        $brands = DB::table('brands')->select($columns)->get();
+        return collect($brands);
     }
 }

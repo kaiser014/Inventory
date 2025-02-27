@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "../partials/BreadCrumb";
 import { Link } from "react-router-dom";
 import GlobalFunction from "../../GlobalFunction";
+import axios from "axios";
 
 const Dashboard = () => {
+  const [allCountData, setAllCountData] = useState([]);
+
+  const getAllCountData = () => {
+    axios.get(`get-dashboard-data`).then((res) => {
+      setAllCountData(res.data);
+    });
+  };
+  useEffect(() => {
+    getAllCountData();
+  }, []);
   return (
     <>
       <BreadCrumb title={"Dashboard"} />
@@ -15,7 +26,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Categories</h6>
-                    <p>500</p>
+                    <div className="dashboard-count-data">
+                      <p>{allCountData.total_categories}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -36,7 +49,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Sub Categories</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data">
+                      <p>{allCountData.total_sub_categories}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -57,7 +72,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Brands</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data">
+                      <p>{allCountData.total_brands}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -78,7 +95,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Suppliers</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data">
+                      <p>{allCountData.total_suppliers}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -99,7 +118,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Customers</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data">
+                      <p>{allCountData.total_customers}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -120,7 +141,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Shops</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data ">
+                      <p>{allCountData.total_shops}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -141,7 +164,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Products</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data ">
+                      <p>{allCountData.total_products}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -162,7 +187,9 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex fw-bold align-items-center justify-content-between">
                     <h6>Total Orders</h6>
-                    <p>1000</p>
+                    <div className="dashboard-count-data ">
+                      <p>{allCountData.total_orders}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="card-footer bg-card d-flex align-items-center justify-content-between">
@@ -185,7 +212,9 @@ const Dashboard = () => {
             <div className="card-body">
               <div className="d-flex fw-bold align-items-center justify-content-between">
                 <h6>Total Sales Managers</h6>
-                <p>1000</p>
+                <div className="dashboard-count-data">
+                  <p>{allCountData.total_sales_managers}</p>
+                </div>
               </div>
             </div>
             <div className="card-footer bg-card d-flex align-items-center justify-content-between">

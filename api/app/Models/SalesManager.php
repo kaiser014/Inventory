@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -114,4 +115,9 @@ class SalesManager extends Model
         'password',
         'remember_token',
     ];
+
+    public function getAllSalesManagersData($columns = ['*']){
+        $sales_managers = DB::table('sales_managers')->select($columns)->get();
+        return collect($sales_managers);
+    }
 }

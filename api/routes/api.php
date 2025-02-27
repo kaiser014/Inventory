@@ -21,6 +21,7 @@ use App\Http\Controllers\ProductPhotoController;
 use App\Http\Controllers\SalesManagerController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\AttributeValueController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
 
 /*
@@ -79,6 +80,7 @@ Route::middleware(['auth:admin,sales_manager'])->group(function (){
     Route::get('get-payment-methods', [PaymentMethodController::class, 'index']);
     Route::get('product-list-for-bar-code', [ProductController::class, 'productListForBarCode']);
     Route::get('get-reports', [ReportController::class, 'index']);
+    Route::get('get-dashboard-data', [DashboardController::class, 'index']);
     Route::get('get-add-product-data', [ProductController::class, 'getAddProductData']);
     Route::get('product-details/{id}', [ProductController::class, 'getProductDetails']);
 });

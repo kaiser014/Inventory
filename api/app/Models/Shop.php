@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Shop extends Model
 {
@@ -81,6 +82,11 @@ class Shop extends Model
             'address.district:id,name',
             'address.area:id,name',
         )->findOrFail($id);
+    }
+
+    public function getAllShopsData($columns = ['*']){
+        $shops = DB::table('shops')->select($columns)->get();
+        return collect($shops);
     }
 
 }

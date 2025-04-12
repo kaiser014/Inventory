@@ -7,6 +7,8 @@ import ShowOrderConfirmation from "../../partials/modals/ShowOrderConfirmation";
 import AddCustomer from "../../partials/modals/AddCustomer";
 import { Link, useNavigate } from "react-router-dom";
 // import useScanDetection from "use-scan-detection";
+import InvoicePaper from "../../partials/modals/InvoicePaper";
+import GlobalFunction from "../../../GlobalFunction";
 
 const CreateOrder = () => {
   const navigate = useNavigate();
@@ -466,12 +468,14 @@ const CreateOrder = () => {
                         >
                           <i class="fa-solid fa-plus"></i> Add
                         </button> */}
-                        <Link
-                          className="btn btn-sm main-btn ms-1"
-                          to={"/customer/create"}
-                        >
-                          <i class="fa-solid fa-plus"></i> Add
-                        </Link>
+                        {GlobalFunction.isAdmin() && (
+                          <Link
+                            className="btn btn-sm main-btn ms-1"
+                            to={"/customer/create"}
+                          >
+                            <i class="fa-solid fa-plus"></i> Add
+                          </Link>
+                        )}
                       </div>
                     </div>
                     <div className="card-body">

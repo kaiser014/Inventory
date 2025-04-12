@@ -23,6 +23,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,8 @@ Route::middleware(['auth:admin,sales_manager'])->group(function (){
     Route::get('get-dashboard-data', [DashboardController::class, 'index']);
     Route::get('get-add-product-data', [ProductController::class, 'getAddProductData']);
     Route::get('product-details/{id}', [ProductController::class, 'getProductDetails']);
+    Route::get('all-products', [ProductController::class, 'getAllProducts']);
+    Route::apiResource('stock', StockController::class);
 });
 
 

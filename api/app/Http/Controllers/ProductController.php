@@ -17,6 +17,7 @@ use App\Models\ProductSpecification;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\AllProductListResource;
 use App\Http\Resources\ProductDestroyPhotoListResource;
 use App\Http\Resources\ProductEditResource;
 use App\Http\Resources\ProductListResource;
@@ -201,5 +202,9 @@ class ProductController extends Controller
         $product = (new Product())->getProductDetailsById($id);
         // $product->load('attributes');
         return new ProductDetailsResource($product);
+    }
+    public function getAllProducts(){
+        $products = (new Product())->getProductAllList();
+        return AllProductListResource::collection($products);
     }
 }

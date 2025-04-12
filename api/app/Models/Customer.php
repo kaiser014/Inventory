@@ -24,7 +24,7 @@ class Customer extends Model
             'email' => $input['email'] ?? '',
             'status' => $input['status'] ?? 0,
             'address' => $input['address'] ?? '',
-            'user_id' => $auth->id(),
+            'user_id' => $auth->id()
         ];
     }
 

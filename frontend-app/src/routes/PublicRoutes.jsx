@@ -36,6 +36,10 @@ import ListCustomer from "../components/modules/customer/ListCustomer";
 import EditCustomer from "../components/modules/customer/EditCustomer";
 import EditSalesManager from "../components/modules/salesManager/EditSalesManager";
 import EditProduct from "../components/modules/product/EditProduct";
+import AddStock from "../components/modules/product_stock/AddStock";
+import StockList from "../components/modules/product_stock/StockList";
+import EditStock from "../components/modules/product_stock/EditStock";
+import InvoicePaper from "../components/partials/modals/InvoicePaper";
 // import EditProductPhoto from "../components/modules/product/product_photo/EditProductPhoto";
 
 const PublicRoutes = () => {
@@ -70,8 +74,6 @@ const PublicRoutes = () => {
             <Route path="/customer/create" element={<AddCustomer />} />
             <Route path="/customer" element={<ListCustomer />} />
             <Route path="/customer/edit/:id" element={<EditCustomer />} />
-            {/* Product Attribute */}
-            <Route path="/product-attribute" element={<ProductAttribute />} />
             {/* Shop */}
             <Route path="/shop/create" element={<AddShop />} />
             <Route path="/shop" element={<ListShop />} />
@@ -82,6 +84,12 @@ const PublicRoutes = () => {
             <Route path="/product/photo/:id" element={<AddProductPhoto />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/product/edit/:id" element={<EditProduct />} />
+            {/* Product Attribute */}
+            <Route path="/product-attribute" element={<ProductAttribute />} />
+            {/* Product Stock */}
+            <Route path="/stock/create" element={<AddStock />} />
+            <Route path="/stock" element={<StockList />} />
+            <Route path="/stock/edit/:id" element={<EditStock />} />
             {/* Sales Manager */}
             <Route path="/sales-manager/create" element={<AddSalesManager />} />
             <Route path="/sales-manager" element={<ListSalesManager />} />
@@ -93,6 +101,7 @@ const PublicRoutes = () => {
             <Route path="/order/create" element={<CreateOrder />} />
             <Route path="/order" element={<OrderList />} />
             <Route path="/order/:id" element={<OrderDetails />} />
+            <Route path="/invoice/:id" element={<InvoicePaper />} />
             {/* BarCode */}
             <Route path="/generate-bar-code" element={<BarCode />} />
             {/* Report */}

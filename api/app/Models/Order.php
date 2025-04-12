@@ -69,6 +69,7 @@ class Order extends Model
     }
     public function getAllOrders($input, $auth){
         $is_admin = $auth->guard('admin')->check();
+        $per_page = $input['per_page'] ?? 10;
         $query = self::query();
         $query->with([
             'customer:id,name,phone',
@@ -78,7 +79,13 @@ class Order extends Model
         ]);
         if(!$is_admin){
             $query->where('shop_id', $auth->user()->shop_id);
-        }
+        };
+        if(!empty($input['search'])){
+            $query->where('order_number', 'like', '%'.$input['search'].'%');
+        };
+        if(!empty($input['order_by'])){
+            $query->orderBy($input['order_by'], $input['direction'] ?? 'asc');
+        };
         return $query->paginate(10);
     }
 

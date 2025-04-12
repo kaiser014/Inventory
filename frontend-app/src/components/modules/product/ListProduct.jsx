@@ -317,7 +317,7 @@ const ListProduct = () => {
                                 {GlobalFunction.isAdmin() && (
                                   <>
                                     <Link
-                                      className="btn btn-sm btn-warning my-1"
+                                      className="btn btn-sm btn-warning m-1"
                                       to={`/product/edit/${product.id}`}
                                     >
                                       <i class="fa-solid fa-pen-to-square"></i>

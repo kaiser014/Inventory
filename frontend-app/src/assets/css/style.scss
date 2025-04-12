@@ -288,3 +288,59 @@
   align-content: center;
   align-items: center;
 }
+.invoice-area {
+  padding: 36px;
+  .invoice-details-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  h2 {
+    font-size: 20px;
+    color: $theme-color;
+    font-weight: 700;
+    margin: 20px 0;
+    padding-bottom: 8px;
+    border-bottom: 4px solid $theme-color;
+  }
+}
+.invoice-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  margin-bottom: 10px;
+}
+
+.invoice-companydetails,
+.invoice-orderdetails {
+  h4 {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  h5 {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 700;
+    // background-color: $theme-color;
+    // color: #fff;
+    // display: inline-block;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+  }
+  h6 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+}
+.system-message {
+  text-align: center;
+  text-transform: uppercase;
+  font-style: italic;
+  margin-top: 50px;
+  font-size: 12px;
+}

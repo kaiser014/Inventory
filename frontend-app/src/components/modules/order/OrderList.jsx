@@ -10,7 +10,7 @@ import DataNotFound from "../../partials/miniComponent/DataNotFound";
 
 const OrderList = () => {
   const [input, setInput] = useState({
-    order_by: "serial",
+    order_by: "order_number",
     per_page: 10,
     direction: "asc",
     search: "",
@@ -63,12 +63,27 @@ const OrderList = () => {
       <div className="row">
         <div className="col-md-12">
           <div className="card">
-            <CardHeader
+            {/* <CardHeader
               title="Order List"
               btn_name="Add Order"
               icon="fa-plus"
               link="/order/create"
-            />
+            /> */}
+            <div className="card-header">
+              <div className="d-flex align-items-center justify-content-between">
+                <h5>Order List</h5>
+                {GlobalFunction.isAdmin() && (
+                  <p className="text-danger fw-bold">
+                    Admin Cannot Create Order
+                  </p>
+                )}
+                {GlobalFunction.isAdmin() || (
+                  <Link className="btn main-btn" to="/order/create">
+                    <i className={`fa-solid fa-plus`}></i>Add Order
+                  </Link>
+                )}
+              </div>
+            </div>
             <div className="card-body page-card-body">
               <div className="search-area mb-4">
                 <div className="row">
@@ -94,11 +109,11 @@ const OrderList = () => {
                         value={input.order_by}
                         onChange={handleSearchInput}
                       >
-                        <option value={"name"}>Name</option>
+                        <option value={"order_number"}>Order Number</option>
                         <option value={"created_at"}>Created at</option>
                         <option value={"updated_at"}>Updated at</option>
-                        <option value={"serial"}>Serial</option>
-                        <option value={"status"}>Status</option>
+                        {/* <option value={"serial"}>Serial</option>
+                        <option value={"status"}>Status</option> */}
                       </select>
                     </label>
                   </div>

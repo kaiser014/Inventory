@@ -171,4 +171,18 @@ class Product extends Model
         )->findOrFail($id);
     }
 
+    public function getProductAllList(){
+        $query = self::query()->with(
+            [
+                'category:id,name',
+                'sub_category:id,name',
+            ]
+        );
+        return $query->get();
+    }
+
+    public function getStockData($id){
+        // return self::query()->where('id', '=', $id)->first()->stock;
+        return self::query()->select('id', 'name', 'stock')->where('id', '=', $id)->first();
+    }
 }

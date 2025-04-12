@@ -178,9 +178,6 @@ const SideBar = () => {
                   </nav>
                 </div>
                 {/* Shop & Sales Manager */}
-                <div className="sb-sidenav-menu-heading">
-                  Shop & Sales Manager
-                </div>
                 <Link
                   className="nav-link collapsed"
                   href="#"
@@ -282,6 +279,37 @@ const SideBar = () => {
                 </Link>
               </nav>
             </div>
+            <Link
+              className="nav-link collapsed"
+              href="#"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseLayouts-stock"
+              aria-expanded="false"
+              aria-controls="collapseLayouts-stock"
+            >
+              <div className="sb-nav-link-icon">
+                <i class="fa-solid fa-box"></i>
+              </div>
+              Stock
+              <div className="sb-sidenav-collapse-arrow">
+                <i className="fas fa-angle-down text-white"></i>
+              </div>
+            </Link>
+            <div
+              className="collapse"
+              id="collapseLayouts-stock"
+              aria-labelledby="headingOne"
+              data-bs-parent="#sidenavAccordion"
+            >
+              <nav className="sb-sidenav-menu-nested nav">
+                <Link className="nav-link" to={"/stock/create"}>
+                  Add Stock
+                </Link>
+                <Link className="nav-link" to={"/stock"}>
+                  List Stock
+                </Link>
+              </nav>
+            </div>
             {GlobalFunction.isAdmin() && (
               <>
                 <Link className="nav-link" to={"/product-attribute"}>
@@ -316,9 +344,11 @@ const SideBar = () => {
               data-bs-parent="#sidenavAccordion"
             >
               <nav className="sb-sidenav-menu-nested nav">
-                <Link className="nav-link" to={"/order/create"}>
-                  Create Order
-                </Link>
+                {GlobalFunction.isAdmin() || (
+                  <Link className="nav-link" to={"/order/create"}>
+                    Create Order
+                  </Link>
+                )}
                 <Link className="nav-link" to={"/order"}>
                   Order List
                 </Link>

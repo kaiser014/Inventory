@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BreadCrumb from "../../partials/BreadCrumb";
-import CardHeader from "../../partials/miniComponent/CardHeader";
-import { useParams } from "react-router-dom";
+// import CardHeader from "../../partials/miniComponent/CardHeader";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import GlobalFunction from "../../../GlobalFunction";
 import Loader from "../../partials/miniComponent/Loader";
@@ -30,12 +30,37 @@ const OrderDetails = () => {
       <div className="row">
         <div className="col-md-12">
           <div className="card mb-3">
-            <CardHeader
+            {/* <CardHeader
               title="Order Details"
               btn_name="Add Order"
               icon="fa-plus"
               link="/order/create"
-            />
+            /> */}
+            <div className="card-header">
+              <div className="d-flex align-items-center justify-content-between">
+                <h5>Order Details List</h5>
+                {GlobalFunction.isAdmin() && (
+                  <p className="text-danger fw-bold">
+                    Admin Cannot Create Order
+                  </p>
+                )}
+                {GlobalFunction.isAdmin() || (
+                  <>
+                    <div>
+                      <Link
+                        className="btn main-btn"
+                        to={`/invoice/${params.id}`}
+                      >
+                        <i className={`fa-solid fa-receipt me-1`}></i>Invoice
+                      </Link>
+                      <Link className="btn main-btn ms-2" to="/order/create">
+                        <i className={`fa-solid fa-plus`}></i>Add Order
+                      </Link>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
             <div className="card-body">
               {isLoading ? (
                 <Loader />
